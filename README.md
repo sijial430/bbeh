@@ -12,9 +12,10 @@ Large language models (LLMs) are increasingly deployed in everyday applications,
 If you use this dataset, we ask that you cite the following paper:
 
 ```latex
-@article{publicationname,
-      title={Publication Name},
-      author={Author One and Author Two and Author Three},
+@article{bbeh,
+      title={BIG-Bench Extra Hard},
+      author={Mehran Kazemi, Bahare Fatemi, Hritik Bansal, John Palowitch, Chrysovalantis Anastasiou, Sanket Vaibhav Mehta, Lalit K. Jain, Virginia Aglietti, Disha Jindal, Peter Chen, Nishanth Dikkala, Gladys Tyen, Xin Liu, Uri Shalit, Silvia Chiappa, Kate Olszewska, Yi Tay, Vinh Q. Tran, Quoc V. Le, Orhan Firat},
+      journal={arXiv preprint arXiv:2502.19187},
       year={2025},
 }
 ```
