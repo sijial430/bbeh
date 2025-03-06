@@ -11,6 +11,10 @@ Large language models (LLMs) are increasingly deployed in everyday applications,
 
 Click [here](leaderboard.md) to see the leaderboard. Feel free to also contribute results for models not already on the leaderboard.
 
+## Evaluation
+
+For the evaluation code, see the `evaluate.py` file under the `bbeh` folder.
+
 ## Citing this work
 
 If you use this dataset, we ask that you cite the following paper:
