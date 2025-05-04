@@ -15,7 +15,6 @@
 
 """Evaluation functions for BigBench Extra Hard."""
 
-
 def strip_latex(response: str) -> str:
   if response.startswith("$") and response.endswith("$"):
     response = response[1:-1]
@@ -52,9 +51,9 @@ def fuzzy_match(prediction: str, reference: str) -> bool:
 
   # (a) vs a
   if len(prediction) == 3 and prediction[0] == "(" and prediction[-1] == ")":
-    return prediction[1] == reference
+    return prediction[1].lower() == reference.lower()
   if len(reference) == 3 and reference[0] == "(" and reference[-1] == ")":
-    return reference[1] == prediction
+    return reference[1].lower() == prediction.lower()
 
   # Numbers
   try:
@@ -74,7 +73,6 @@ def fuzzy_match(prediction: str, reference: str) -> bool:
   # Question mark issues
   if prediction.endswith("?") and prediction[:-1] == reference:
     return True
-
   return False
 
 
@@ -99,11 +97,24 @@ def evaluate_correctness(sample: str, reference: str) -> bool:
 
 
 # Examples
-print(evaluate_correctness("Ok The final answer is: \\boxed{4}.", "4"))
-print(evaluate_correctness("[Reasoning] The final answer is: \\boxed{4}.", "3"))
-print(evaluate_correctness("Alright! The final answer is: 2, 3, 4", "2,3,4"))
-print(evaluate_correctness("blah blah The final answer is: 2, 3, 4", "2,3,5"))
-print(evaluate_correctness("Ok The answer is: (A)", "a"))
-print(evaluate_correctness("Ok The answer is: (A)", "b"))
-print(evaluate_correctness("Ok The answer is: **25**\nHere's why.", "25.0"))
-print(evaluate_correctness("Ok The answer is: **25**\nHere's why.", "26.0"))
+# print(evaluate_correctness("Ok The final answer is: \\boxed{4}.", "4"))
+# print(evaluate_correctness("[Reasoning] The final answer is: \\boxed{4}.", "3"))
+# print(evaluate_correctness("Alright! The final answer is: 2, 3, 4", "2,3,4"))
+# print(evaluate_correctness("blah blah The final answer is: 2, 3, 4", "2,3,5"))
+# print(evaluate_correctness("Ok The answer is: (A)", "a"))
+# print(evaluate_correctness("Ok The answer is: (A)", "b"))
+# print(evaluate_correctness("Ok The answer is: **25**\nHere's why.", "25.0"))
+# print(evaluate_correctness("Ok The answer is: **25**\nHere's why.", "26.0"))
+
+# print(evaluate_correctness("Ok The final answer is: \\boxed{4}**.", "4"))
+# print(evaluate_correctness("### **Final answer:**\n\n\\boxed{3}\n\n---\n\n**The person who eats raspberries is at position \\(\\boxed{3}\\).**", "3"))
+# print(evaluate_correctness("## Final answer:\n\n\\(\\boxed{4}\\)\n\n**The answer is: \\boxed{4}**", "4"))
+# print(evaluate_correctness("## Final answer:\n\n\\(\\boxed{\\text{The designer is at position 6}}\\)\n\n**Answer: \\boxed{6}**", "6"))
+# print(evaluate_correctness("### **Final answer:**\n\nThe person who drinks water is at position **4**.\n\n---\n\n## **Answer:**\n\n\\boxed{4}", "4"))
+# print(evaluate_correctness("## Final answer:\n\n**The answer is: \\boxed{1}**", "1"))
+# print(evaluate_correctness("### **Final answer:**\n\n\\boxed{3}\n\n---\n\n**The person who eats raspberries is at position \\(\\boxed{3}\\).**", "3"))
+# print(evaluate_correctness("Let's carefully analyze and solve this complex zebra puzzle step by step. Due to the extensive clues, we'll proceed systematically, establishing the positions of certain key attributes first, then filling in the rest.\n\n---\n\n### Step 1: Basic fixed clues and initial placements\n\n- Clue 11: The person who likes puffins is at one of the ends.  \n  Positions: 1 or 6.\n\n- Clue 37: The person who likes puffins is at one of the ends.  \n  (Same as above, confirms puffins at position 1 or 6.)\n\n- Clue 61: The person who likes 7up is at one of the ends.  \n  \n\n- Clue 125: The person who drives the Yamaha is not the person who supports the Buffalo", "")) # no final answer generated
+# print(evaluate_correctness("### **Final deduction:**\n\n- **Position 5:** Chinese.\n\n---\n\n### **Answer:**\n\n\\boxed{\\text{The Chinese is at position 5.", "5"))
+# print(evaluate_correctness("## **Final answer: \\boxed[1]}", "1"))
+# print(evaluate_correctness("### **Final answer:**\n\nThe person who drinks water is at position **4**.\n\n---\n\n## **Answer:**\n\n\\boxed{4}", "4"))
+# print(evaluate_correctness("## Final answer:\n\n\\(\\boxed{\\text{The designer is at position 6}}\\)\n\n**Answer: \\boxed[6]**", "6"))
